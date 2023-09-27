@@ -1,5 +1,6 @@
 package com.petar.querybuilder
 
+import com.petar.querybuilder.impl.SelectQueryBuilder
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
