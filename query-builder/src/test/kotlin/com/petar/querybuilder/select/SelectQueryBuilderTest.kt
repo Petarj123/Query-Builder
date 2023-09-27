@@ -1,4 +1,4 @@
-package com.petar.querybuilder
+package com.petar.querybuilder.select
 
 import com.petar.querybuilder.client.ConnectionClient
 import com.petar.querybuilder.impl.SelectQueryBuilder

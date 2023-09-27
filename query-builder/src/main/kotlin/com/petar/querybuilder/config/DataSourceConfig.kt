@@ -8,7 +8,7 @@ import javax.sql.DataSource
 
 @Configuration
 @EnableConfigurationProperties(DbProperties::class)
-class DatSourceConfig(private val dbProperties: DbProperties) {
+class DataSourceConfig(private val dbProperties: DbProperties) {
 
     @Bean
     fun dataSource(): DataSource {
