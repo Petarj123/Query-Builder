@@ -1,2 +1,3 @@
 
 query-builder/src/main/resources/application.properties
+query-builder/src/main/resources/application-test.properties
