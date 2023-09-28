@@ -4,4 +4,5 @@ interface QueryBuilder {
 
     fun build(): String
     fun execute(): Any?
+
 }

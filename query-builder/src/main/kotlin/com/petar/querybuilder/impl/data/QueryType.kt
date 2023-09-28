@@ -1,4 +1,4 @@
-package com.petar.querybuilder.impl
+package com.petar.querybuilder.impl.data
 
 enum class QueryType {
     SELECT,

@@ -1,6 +1,6 @@
 package com.petar.querybuilder.core
 
-import com.petar.querybuilder.impl.QueryType
+import com.petar.querybuilder.impl.data.QueryType
 import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.jdbc.support.GeneratedKeyHolder
 import java.sql.Statement
@@ -46,6 +46,4 @@ abstract class BaseQueryBuilder<T : BaseQueryBuilder<T>> : QueryBuilder {
             else -> jdbcTemplate.update(query)  // For UPDATE, DELETE
         }
     }
-
-
 }

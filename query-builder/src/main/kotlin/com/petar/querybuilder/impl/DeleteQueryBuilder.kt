@@ -2,6 +2,7 @@ package com.petar.querybuilder.impl
 
 import com.petar.querybuilder.client.ConnectionClient
 import com.petar.querybuilder.core.BaseQueryBuilder
+import com.petar.querybuilder.impl.data.QueryType
 import org.springframework.jdbc.core.JdbcTemplate
 
 class DeleteQueryBuilder(private val table: String, private val connectionClient: ConnectionClient) : BaseQueryBuilder<DeleteQueryBuilder>() {

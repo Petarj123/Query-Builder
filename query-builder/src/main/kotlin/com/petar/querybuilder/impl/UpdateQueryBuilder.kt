@@ -2,6 +2,7 @@ package com.petar.querybuilder.impl
 
 import com.petar.querybuilder.client.ConnectionClient
 import com.petar.querybuilder.core.BaseQueryBuilder
+import com.petar.querybuilder.impl.data.QueryType
 import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.jdbc.core.PreparedStatementSetter
 
@@ -20,12 +21,12 @@ class UpdateQueryBuilder(private val table: String, private val connectionClient
         if (conditions.isEmpty()) throw IllegalArgumentException("No conditions provided for update")
 
         val setClause = updateValues.keys.joinToString(", ") { "$it = ?" }
-        val whereClause = conditions.joinToString(" AND ") // Assuming conditions are also parameterized
+        val whereClause = conditions.joinToString(" AND ")
 
         return "UPDATE $table SET $setClause WHERE $whereClause"
     }
 
-    override fun execute(): Any? {
+    override fun execute(): Any {
         val query = build()
 
         val preparedStatementSetter = PreparedStatementSetter { ps ->
