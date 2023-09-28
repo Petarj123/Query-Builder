@@ -59,6 +59,14 @@ class SelectQueryBuilder(private val table: String, connectionClient: Connection
         }
         return queryBuilder.toString()
     }
+    fun select(vararg cols: String): SelectQueryBuilder {
+        columns.addAll(cols)
+        return this
+    }
+    fun where(condition: String): SelectQueryBuilder {
+        conditions.add(condition)
+        return this
+    }
     fun orderBy(columnName: String, orderType: OrderType): SelectQueryBuilder {
         orderByColumns.add(OrderByColumn(columnName, orderType))
         return this

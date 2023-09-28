@@ -17,4 +17,9 @@ class DeleteQueryBuilder(private val table: String, private val connectionClient
 
         return "DELETE FROM $table WHERE $whereClause"
     }
+    fun where(condition: String): DeleteQueryBuilder {
+        conditions.add(condition)
+        return this
+    }
+
 }

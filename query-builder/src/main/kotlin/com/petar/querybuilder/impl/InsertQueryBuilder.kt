@@ -33,6 +33,14 @@ class InsertQueryBuilder(private val table: String, private val connectionClient
 
         return "INSERT INTO $table $selectedColumns VALUES ($formattedValues)"
     }
+    fun select(vararg cols: String): InsertQueryBuilder {
+        columns.addAll(cols)
+        return this
+    }
+    fun where(condition: String): InsertQueryBuilder {
+        conditions.add(condition)
+        return this
+    }
     fun values(vararg args: String): BaseQueryBuilder<InsertQueryBuilder> {
         values.addAll(args)
         return this

@@ -26,6 +26,10 @@ class UpdateQueryBuilder(private val table: String, private val connectionClient
         return "UPDATE $table SET $setClause WHERE $whereClause"
     }
 
+    fun where(condition: String): UpdateQueryBuilder {
+        conditions.add(condition)
+        return this
+    }
     override fun execute(): Any {
         val query = build()
 

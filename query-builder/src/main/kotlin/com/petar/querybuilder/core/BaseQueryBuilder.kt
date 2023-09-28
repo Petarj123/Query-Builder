@@ -13,25 +13,7 @@ abstract class BaseQueryBuilder<T : BaseQueryBuilder<T>> : QueryBuilder {
     abstract val jdbcTemplate: JdbcTemplate
     abstract val queryType: QueryType
 
-    /**
-     * Adds a condition to the query.
-     * @param condition The condition to be added to the query.
-     */
-    fun where(condition: String): T {
-        conditions.add(condition)
-        @Suppress("UNCHECKED_CAST")
-        return this as T
-    }
 
-    /**
-     * Specifies the columns to be selected in the query.
-     * @param cols The columns to be selected.
-     */
-    fun select(vararg cols: String): T {
-        columns.addAll(cols)
-        @Suppress("UNCHECKED_CAST")
-        return this as T
-    }
     override fun execute(): Any? {
         val query = build()
         return when(queryType) {
