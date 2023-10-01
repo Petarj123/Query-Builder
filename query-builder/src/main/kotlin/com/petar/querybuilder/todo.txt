@@ -1,3 +1,0 @@
-i have a question, lets say we have multiple cols inserted multiple columns in values once, now we want to insert others from same instance of the object, since all previous cols and values are still stored in lists, will that cause any problems?
-
-add caching of table metadata
