@@ -32,10 +32,6 @@ class InsertQueryBuilder(private val table: String, private val connectionClient
         columns.addAll(cols)
         return this
     }
-    fun where(condition: String): InsertQueryBuilder {
-        conditions.add(condition)
-        return this
-    }
     fun values(vararg args: Any): BaseQueryBuilder<InsertQueryBuilder> {
         values.addAll(args)
         return this
