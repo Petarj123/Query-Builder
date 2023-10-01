@@ -2,3 +2,4 @@
 query-builder/src/main/resources/application.properties
 query-builder/src/main/resources/application-test.properties
 query-builder/src/main/resources/META-INF/spring.factories
+query-builder/src/main/kotlin/com/petar/querybuilder/todo.txt
