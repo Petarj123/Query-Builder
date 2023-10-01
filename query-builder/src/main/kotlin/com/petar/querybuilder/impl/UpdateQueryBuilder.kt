@@ -32,13 +32,12 @@ class UpdateQueryBuilder(private val table: String, private val connectionClient
     }
     override fun execute(): Any {
         val query = build()
-
+        println(query)
         val preparedStatementSetter = PreparedStatementSetter { ps ->
             var paramIndex = 1
             updateValues.values.forEach { ps.setObject(paramIndex++, it) }
-            // If you need to set values for conditions, you should do that here.
         }
 
-        return jdbcTemplate.update(query, preparedStatementSetter) // Execute the update and return the number of rows updated
+        return jdbcTemplate.update(query, preparedStatementSetter)
     }
 }
