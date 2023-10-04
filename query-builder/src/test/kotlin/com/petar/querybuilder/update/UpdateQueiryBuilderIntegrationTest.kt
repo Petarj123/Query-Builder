@@ -43,7 +43,7 @@ class UpdateQueryBuilderIntegrationTest(
         val queryBuilder = createQueryBuilder()
 
         queryBuilder
-            .where("email = 'test@example.com'")
+            .where("email", "=", "test@example.com")
             .set("name", "Updated User")
             .execute()
 
@@ -56,7 +56,7 @@ class UpdateQueryBuilderIntegrationTest(
         val queryBuilder = createQueryBuilder()
 
         queryBuilder
-            .where("email = 'test@example.com'")
+            .where("email", "=", "test@example.com")
             .set("age", 12)
             .execute()
 

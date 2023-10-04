@@ -9,6 +9,14 @@ class SelectQueryBuilder(private val table: String, connectionClient: Connection
 
     override val jdbcTemplate: JdbcTemplate = connectionClient.jdbcTemplate
     override val queryType: QueryType = QueryType.SELECT
+    override fun execute(): Any {
+        val sql = build()
+
+        val params = conditions.map { it.value }.toTypedArray()
+        return jdbcTemplate.queryForList(sql, *params)
+    }
+
+
     private val orderByColumns = mutableListOf<OrderByColumn>()
     private val groupByColumns = mutableListOf<String>()
     private var havingCondition: String? = null
@@ -35,7 +43,8 @@ class SelectQueryBuilder(private val table: String, connectionClient: Connection
 
         // If there are conditions specified, construct the WHERE clause
         if (conditions.isNotEmpty()) {
-            queryBuilder.append(" WHERE ").append(conditions.joinToString(" AND "))
+            val conditionStrings = conditions.map { "${it.column} ${it.comparator} ?" }
+            queryBuilder.append(" WHERE ").append(conditionStrings.joinToString(" AND "))
         }
 
         // If there are GROUP BY columns specified, construct the GROUP BY clause
@@ -63,8 +72,8 @@ class SelectQueryBuilder(private val table: String, connectionClient: Connection
         columns.addAll(cols)
         return this
     }
-    fun where(condition: String): SelectQueryBuilder {
-        conditions.add(condition)
+    fun where(column: String, comparator: String, value: Any): SelectQueryBuilder {
+        conditions.add(Condition(column, comparator, value))
         return this
     }
     fun orderBy(columnName: String, orderType: OrderType): SelectQueryBuilder {

@@ -90,7 +90,7 @@ class SelectQueryBuilderIntegrationTest(@Autowired val dataSource: DataSource, @
 
         // Act
         queryBuilder.select("user_id", "name")
-        val result: Any? = queryBuilder.execute()
+        val result: Any = queryBuilder.execute()
 
         // Assert
         assertTrue(result is List<*>, "Result should be a List")

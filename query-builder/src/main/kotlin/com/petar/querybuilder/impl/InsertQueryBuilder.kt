@@ -21,13 +21,14 @@ class InsertQueryBuilder(private val table: String, private val connectionClient
         val placeholders = columns.joinToString(", ") { "?" } // Creates placeholders for each column
         return "INSERT INTO $table $selectedColumns VALUES ($placeholders)"
     }
-
     override fun execute(): Any {
+        if (columns.size != values.size) {
+            throw IllegalArgumentException("Number of columns does not match number of provided values.")
+        }
+
         val sql = build()
-        println(sql)
         return jdbcTemplate.update(sql, *values.toTypedArray())
     }
-
     fun into(vararg cols: String): InsertQueryBuilder {
         columns.addAll(cols)
         return this

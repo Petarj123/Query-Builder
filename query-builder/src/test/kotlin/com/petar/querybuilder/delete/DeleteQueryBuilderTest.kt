@@ -11,9 +11,9 @@ class DeleteQueryBuilderTest {
     @Test
     fun testDelete() {
         val queryBuilder = createQueryBuilder("test_table")
-        val query = queryBuilder.where("name = 'petar'").build()
+        val query = queryBuilder.where("name", "=", "petar").build()
 
-        val actualQuery = "DELETE FROM test_table WHERE name = 'petar'"
+        val actualQuery = "DELETE FROM test_table WHERE name = ?"
 
         assertEquals(actualQuery, query)
     }

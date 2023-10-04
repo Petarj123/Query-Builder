@@ -14,14 +14,14 @@ class SelectQueryBuilderTest {
         val queryBuilder = createQueryBuilder("test_table")
 
         queryBuilder.select("id", "name")
-            .where("id > 1")
-            .where("name LIKE '%test%'")
+            .where("id", ">", 1)
+            .where("name", "LIKE", "%test%")
 
         // Act
         val query = queryBuilder.build()
 
         // Assert
-        val expectedQuery = "SELECT id, name FROM test_table WHERE id > 1 AND name LIKE '%test%'"
+        val expectedQuery = "SELECT id, name FROM test_table WHERE id > ? AND name LIKE ?"
         assertEquals(expectedQuery, query)
     }
     @Test
@@ -52,24 +52,11 @@ class SelectQueryBuilderTest {
         val queryBuilder = createQueryBuilder("test_table")
 
         queryBuilder
-            .where("id > 5")
+            .where("id", ">", 5)
             .orderBy("name", OrderType.DESC)
         val query = queryBuilder.build()
 
-        val expectedQuery = "SELECT * FROM test_table WHERE id > 5 ORDER BY name DESC"
-        assertEquals(expectedQuery, query)
-    }
-    @Test
-    fun `build should construct correct SQL with complex conditions`() {
-        val queryBuilder = createQueryBuilder("test_table")
-
-        queryBuilder
-            .where("id > 5")
-            .where("age < 30")
-            .where("(name LIKE '%test%' OR email LIKE '%test%')")
-        val query = queryBuilder.build()
-
-        val expectedQuery = "SELECT * FROM test_table WHERE id > 5 AND age < 30 AND (name LIKE '%test%' OR email LIKE '%test%')"
+        val expectedQuery = "SELECT * FROM test_table WHERE id > ? ORDER BY name DESC"
         assertEquals(expectedQuery, query)
     }
     @Test
@@ -122,8 +109,8 @@ class SelectQueryBuilderTest {
         queryBuilder
             .select("column1", "column2", "column3")
             .distinct()
-            .where("column1 > 1")
-            .where("column2 < 10")
+            .where("column1", ">", 1)
+            .where("column2", "<", 10)
             .groupBy("column3")
             .having("COUNT(column3) > 2")
             .orderBy("column2", OrderType.ASC)
@@ -131,12 +118,7 @@ class SelectQueryBuilderTest {
 
         val actualQuery = queryBuilder.build()
 
-        val expectedQuery = "SELECT DISTINCT column1, column2, column3 FROM test_table " +
-                "WHERE column1 > 1 AND column2 < 10 " +
-                "GROUP BY column3 " +
-                "HAVING COUNT(column3) > 2 " +
-                "ORDER BY column2 ASC " +
-                "INNER JOIN another_table ON test_table.column1 = another_table.column1"
+        val expectedQuery = "SELECT DISTINCT column1, column2, column3 FROM test_table WHERE column1 > ? AND column2 < ? GROUP BY column3 HAVING COUNT(column3) > 2 ORDER BY column2 ASC INNER JOIN another_table ON test_table.column1 = another_table.column1"
 
         assertEquals(expectedQuery, actualQuery)
     }

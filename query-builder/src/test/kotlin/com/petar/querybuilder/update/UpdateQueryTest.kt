@@ -18,11 +18,11 @@ class UpdateQueryTest(@Autowired val dataSource: DataSource, @Autowired val conn
     fun testUpdate() {
         val queryBuilder = UpdateQueryBuilder("test", connectionClient)
         val query = queryBuilder
-            .where("name = 'petar'")
+            .where("name", "=", "petar")
             .set("email", "updated")
             .build()
 
-        val expectedQuery = "UPDATE test SET email = ? WHERE name = 'petar'"
+        val expectedQuery = "UPDATE test SET email = ? WHERE name = ?"
         assertEquals(expectedQuery, query)
     }
 }

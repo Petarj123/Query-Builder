@@ -21,7 +21,7 @@ class DeleteQueryBuilderIntegrationTest(@Autowired val dataSource: DataSource, @
     fun `should delete row`() {
         val queryBuilder = DeleteQueryBuilder("test_users", connectionClient)
 
-        val execute = queryBuilder.where("email = 'email1'").execute()
+        val execute = queryBuilder.where("email", "=","email1").execute()
 
         assertEquals(1, execute)
     }
